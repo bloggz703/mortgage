@@ -1,0 +1,90 @@
+<html><head><base href="https://www.ukmortgagecalculator.co.uk/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UK Mortgage Calculator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f4f4f4;
+    }
+    h1 {
+        color: #0066cc;
+        text-align: center;
+    }
+    .calculator {
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+        display: block;
+        margin-top: 10px;
+    }
+    input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    button {
+        background-color: #0066cc;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin-top: 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    button:hover {
+        background-color: #0052a3;
+    }
+    #result {
+        margin-top: 20px;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+    <h1>UK Mortgage Calculator</h1>
+    <div class="calculator">
+        <label for="property-value">Property Value (£):</label>
+        <input type="number" id="property-value" min="0" step="1000" value="200000">
+        
+        <label for="deposit">Deposit (£):</label>
+        <input type="number" id="deposit" min="0" step="1000" value="20000">
+        
+        <label for="interest-rate">Interest Rate (%):</label>
+        <input type="number" id="interest-rate" min="0" step="0.1" value="3.5">
+        
+        <label for="mortgage-term">Mortgage Term (years):</label>
+        <input type="number" id="mortgage-term" min="1" max="40" step="1" value="25">
+        
+        <button onclick="calculateMortgage()">Calculate</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateMortgage() {
+            const propertyValue = parseFloat(document.getElementById('property-value').value);
+            const deposit = parseFloat(document.getElementById('deposit').value);
+            const interestRate = parseFloat(document.getElementById('interest-rate').value) / 100 / 12;
+            const mortgageTerm = parseFloat(document.getElementById('mortgage-term').value) * 12;
+            
+            const loanAmount = propertyValue - deposit;
+            const monthlyPayment = (loanAmount * interestRate * Math.pow(1 + interestRate, mortgageTerm)) / (Math.pow(1 + interestRate, mortgageTerm) - 1);
+            
+            const result = document.getElementById('result');
+            result.innerHTML = `Estimated Monthly Payment: £${monthlyPayment.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
